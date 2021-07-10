@@ -7,15 +7,9 @@ using System.Threading.Tasks;
 
 namespace HRTrainingTracker.Entities.Models
 {
-    public class Employee
+    public class TrainingTypes
     {
-        public int EmployeeID { get; set; }
-        
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
+        public int TrainingTypesID { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
@@ -28,7 +22,5 @@ namespace HRTrainingTracker.Entities.Models
         public DateTime? LastModifiedDate { get; set; }
 
         public string LastModifiedByName { get; set; }
-
-        public IList<Training> TrainingList { get; set; }
     }
 }

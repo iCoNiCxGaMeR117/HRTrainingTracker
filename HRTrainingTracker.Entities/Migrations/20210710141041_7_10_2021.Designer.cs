@@ -4,14 +4,16 @@ using HRTrainingTracker.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HRTrainingTracker.Entities.Migrations
 {
     [DbContext(typeof(HRTrainingContext))]
-    partial class HRTrainingContextModelSnapshot : ModelSnapshot
+    [Migration("20210710141041_7_10_2021")]
+    partial class _7_10_2021
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,30 +104,6 @@ namespace HRTrainingTracker.Entities.Migrations
                     b.HasKey("TrainingID");
 
                     b.ToTable("Trainings");
-                });
-
-            modelBuilder.Entity("HRTrainingTracker.Entities.Models.TrainingTypes", b =>
-                {
-                    b.Property<int>("TrainingTypesID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedByName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedByName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("TrainingTypesID");
-
-                    b.ToTable("TrainingTypes");
                 });
 
             modelBuilder.Entity("EmployeeTraining", b =>

@@ -21,6 +21,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="EmployeeManager">Employee Manager</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TrainingManager">Training Manager</a>
+                        </li>
                     </ul>
                     <p class="nav navbar-text">Hello, @User.Identity.Name.Split('\\')[1]!</p>
                 </div>
@@ -46,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - HRTrainingTracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Today.Year - HRTrainingTracker - Boge - Designed By: Johnny Kinslow
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
