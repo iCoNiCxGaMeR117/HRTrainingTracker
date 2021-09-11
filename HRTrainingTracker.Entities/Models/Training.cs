@@ -14,7 +14,6 @@ namespace HRTrainingTracker.Entities.Models
         [Required]
         public string TrainingName { get; set; }
 
-        [Required]
         public string TrainingDescription { get; set; }
 
         [Required]
@@ -26,6 +25,16 @@ namespace HRTrainingTracker.Entities.Models
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public DateTime? TrainingExpiration { get; set; }
 
+        [Required]
+        public string TrainerName { get; set; }
+
+        [Required]
+        public TrainingTypes TrainingType { get; set; }
+
+        [Required]
+        public Local Locality { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public DateTime CreatedDate { get; set; }
@@ -38,6 +47,6 @@ namespace HRTrainingTracker.Entities.Models
 
         public string LastModifiedByName { get; set; }
 
-        public IList<Employee> WithTraining { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

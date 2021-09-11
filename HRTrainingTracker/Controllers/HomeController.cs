@@ -52,7 +52,7 @@ namespace HRTrainingTracker.Controllers
             try
             {
                 var Trainings = _context.Trainings
-                    .Include(employee => employee.WithTraining)
+                    .Include(employee => employee.Employees)
                     .OrderBy(item => item.TrainingName)
                     .ToList();
 

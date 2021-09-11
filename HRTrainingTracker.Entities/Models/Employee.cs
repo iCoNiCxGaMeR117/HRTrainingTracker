@@ -17,6 +17,26 @@ namespace HRTrainingTracker.Entities.Models
         [Required]
         public string LastName { get; set; }
 
+        [Required]
+        public Shift Shift { get; set; }
+
+        [Required]
+        public DateTime HireDate { get; set; }
+
+        public DateTime? TransferDate { get; set; }
+
+        [Required]
+        public Building Building { get; set; }
+
+        [Required]
+        public Department Department { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
+
+        [Required]
+        public bool Manager { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public DateTime CreatedDate { get; set; }
@@ -29,6 +49,6 @@ namespace HRTrainingTracker.Entities.Models
 
         public string LastModifiedByName { get; set; }
 
-        public IList<Training> TrainingList { get; set; }
+        public ICollection<Training> TrainingList { get; set; }
     }
 }

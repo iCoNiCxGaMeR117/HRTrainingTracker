@@ -23,11 +23,25 @@ namespace HRTrainingTracker.Entities
 
         }
 
+        #region Employee Items
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<Building> Buildings { get; set; }
+
+        public DbSet<Shift> Shifts { get; set; }
+
+        public DbSet<Department> Departments { get; set; }
+
+        public DbSet<State> States { get; set; }
+        #endregion
+
+        #region Training Items
         public DbSet<Training> Trainings { get; set; }
 
         public DbSet<TrainingTypes> TrainingTypes { get; set; }
+
+        public DbSet<Local> Localities { get; set; }
+        #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

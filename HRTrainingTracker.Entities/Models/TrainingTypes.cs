@@ -22,5 +22,7 @@ namespace HRTrainingTracker.Entities.Models
         public DateTime? LastModifiedDate { get; set; }
 
         public string LastModifiedByName { get; set; }
+
+        public ICollection<Training> Trainings { get; set; }
     }
 }
