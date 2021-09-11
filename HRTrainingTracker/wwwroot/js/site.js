@@ -4,3 +4,12 @@
         $('#Loading').show();
     });
 });
+
+$(document).ready(function () {
+    $('.CustomDataTable').DataTable({
+        dom: 'BQfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf'
+        ]
+    });
+});

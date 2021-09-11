@@ -40,14 +40,76 @@
     }
     else
     {
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            <div class="row justfiy-content-center">
-                <div class="col-4 text-center">
-                    @Html.DisplayFor(item => item.ElementAt(i).LastName + ", " + item.ElementAt(i).FirstName)
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-12 text-center table-responsive">
+                <table class="table CustomDataTable table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Shift</th>
+                            <th>Hire Date</th>
+                            <th>Transfer Date</th>
+                            <th>Building</th>
+                            <th>Department</th>
+                            <th>Active</th>
+                            <th>Manager</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).EmployeeID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).Shift.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).HireDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TransferDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).Building.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).Department.Name)
+                                </td>
+                                <td>
+                                    @if (Model.ElementAt(i).Active)
+                                    {
+                                        <span class="badge badge-pill badge-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-pill badge-danger">No</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.ElementAt(i).Manager)
+                                    {
+                                        <span class="badge badge-pill badge-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-pill badge-danger">No</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <hr />
-        }
+        </div>
     }
 }

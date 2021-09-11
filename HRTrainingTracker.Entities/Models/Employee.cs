@@ -21,6 +21,8 @@ namespace HRTrainingTracker.Entities.Models
         public Shift Shift { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}")]
         public DateTime HireDate { get; set; }
 
         public DateTime? TransferDate { get; set; }
