@@ -6,7 +6,7 @@
 
 <div class="row justify-content-center">
     <div class="col-3 text-center my-auto">
-        <a class="btn btn-primary" asp-area="" asp-controller="TrainingInsights" asp-action="EmployeeManagerAddNew">Add New</a>
+        <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EmployeeManagerAddNew">Add New</a>
     </div>
     <div class="col-auto"></div>
     <div class="col-4 text-center">
@@ -45,47 +45,51 @@
                 <table class="table CustomDataTable table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Shift</th>
-                            <th>Hire Date</th>
-                            <th>Transfer Date</th>
-                            <th>Building</th>
-                            <th>Department</th>
-                            <th>Active</th>
-                            <th>Manager</th>
+                            <th class="my-auto text-center"></th>
+                            <th class="my-auto text-center">ID</th>
+                            <th class="my-auto text-center">First Name</th>
+                            <th class="my-auto text-center">Last Name</th>
+                            <th class="my-auto text-center">Shift</th>
+                            <th class="my-auto text-center">Hire Date</th>
+                            <th class="my-auto text-center">Transfer Date</th>
+                            <th class="my-auto text-center">Building</th>
+                            <th class="my-auto text-center">Department</th>
+                            <th class="my-auto text-center">Active</th>
+                            <th class="my-auto text-center">Manager</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (var i = 0; i < Model.Count; i++)
                         {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).EmployeeID)
+                                <td class="my-auto text-center">
+                                    <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EmployeeManagerAddNew" asp-route-id="@(Model.ElementAt(i).EmployeeID)">Select</a>
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
+                                    <b>@Html.DisplayFor(obj => obj.ElementAt(i).EmployeeID)</b>
+                                </td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).FirstName)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).LastName)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).Shift.Name)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).HireDate)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).TransferDate)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).Building.Name)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @Html.DisplayFor(obj => obj.ElementAt(i).Department.Name)
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @if (Model.ElementAt(i).Active)
                                     {
                                         <span class="badge badge-pill badge-success">Yes</span>
@@ -95,7 +99,7 @@
                                         <span class="badge badge-pill badge-danger">No</span>
                                     }
                                 </td>
-                                <td>
+                                <td class="my-auto text-center">
                                     @if (Model.ElementAt(i).Manager)
                                     {
                                         <span class="badge badge-pill badge-success">Yes</span>

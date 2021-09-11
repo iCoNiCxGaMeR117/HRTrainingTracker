@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "New Employee";
+}
+
+@model HRTrainingTracker.Entities.Models.Employee
+
+<div class="row justify-content-center">
+    <div class="col-3 text-center my-auto">
+        <a class="btn btn-outline-danger buttonload" asp-area="" asp-controller="Home" asp-action="EmployeeManager">Back</a>
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-4 text-center">
+        <hr />
+        <h2>New Employee</h2>
+        <hr />
+        @if (!string.IsNullOrEmpty((string)TempData.Peek("Error")))
+        {
+            <p class="text-danger">@TempData["Error"].ToString()</p>
+        }
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-3">
+
+    </div>
+</div>
+<hr />
+@using (Html.BeginForm("NewEmployeeSaver", "TrainingInsights", FormMethod.Post))
+{
+    <div class="row justify-content-center">
+        <div class="col-5 text-center">
+            <b>First Name</b>
+            <br />
+            @Html.EditorFor(obj => obj.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-auto"><br /></div>
+        <div class="col-5 text-center">
+            <b>Last Name</b>
+            <br />
+            @Html.EditorFor(obj => obj.LastName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-4 text-center">
+            <b>Hire Date</b>
+            <br />
+            @Html.EditorFor(obj => obj.HireDate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-auto"><br /></div>
+        <div class="col-4 text-center">
+            <b>Transfer Date</b>
+            <br />
+            @Html.EditorFor(obj => obj.TransferDate, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-4 text-center">
+            <b>Building</b>
+            <br />
+            @Html.DropDownListFor(obj => obj.Building.BuildingID, Model.BuildingList, new { @class = "form-control" })
+        </div>
+        <div class="col-auto"><br /></div>
+        <div class="col-4 text-center">
+            <b>Shift</b>
+            <br />
+            @Html.DropDownListFor(obj => obj.Shift.ShiftID, Model.ShiftList, new { @class = "form-control" })
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-4 text-center">
+            <b>Department</b>
+            <br />
+            @Html.DropDownListFor(obj => obj.Department.DepartmentID, Model.DeptList, new { @class = "form-control" })
+        </div>
+        <div class="col-auto"><br /></div>
+        <div class="col-4 text-center my-auto">
+            <b>Manager</b>
+            <br />
+            @Html.CheckBoxFor(obj => obj.Manager)
+        </div>
+    </div>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-4 my-auto text-center"><button class="btn btn-outline-success">Submit New Employee</button></div>
+    </div>
+}

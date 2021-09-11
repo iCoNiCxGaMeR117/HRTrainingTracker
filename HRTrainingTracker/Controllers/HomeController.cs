@@ -35,6 +35,9 @@ namespace HRTrainingTracker.Controllers
             {
                 var Employees = _context.Employees
                     .Include(training => training.TrainingList)
+                    .Include(shift => shift.Shift)
+                    .Include(building => building.Building)
+                    .Include(dept => dept.Department)
                     .OrderBy(item => item.LastName)
                     .ToList();
 
@@ -53,7 +56,9 @@ namespace HRTrainingTracker.Controllers
             {
                 var Trainings = _context.Trainings
                     .Include(employee => employee.Employees)
-                    .OrderBy(item => item.TrainingName)
+                    .Include(types => types.TrainingType)
+                    .Include(local => local.Locality)
+                    .OrderByDescending(item => item.TrainingID)
                     .ToList();
 
                 return View(Trainings);

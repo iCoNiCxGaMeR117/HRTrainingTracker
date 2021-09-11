@@ -7,9 +7,15 @@
 
 $(document).ready(function () {
     $('.CustomDataTable').DataTable({
-        dom: 'BQfrtip',
+        dom: 'QBfrtip',
         buttons: [
             'copy', 'excel', 'pdf'
-        ]
+        ],
+        fixedHeader: true,
+        colReorder: true,
+        'columnDefs': [{
+            'targets': 0,
+            'orderable': false
+        }]
     });
 });
