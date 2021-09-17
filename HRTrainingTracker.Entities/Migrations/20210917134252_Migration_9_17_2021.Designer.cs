@@ -4,14 +4,16 @@ using HRTrainingTracker.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HRTrainingTracker.Entities.Migrations
 {
     [DbContext(typeof(HRTrainingContext))]
-    partial class HRTrainingContextModelSnapshot : ModelSnapshot
+    [Migration("20210917134252_Migration_9_17_2021")]
+    partial class Migration_9_17_2021
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,9 +208,6 @@ namespace HRTrainingTracker.Entities.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Expired")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedByName")
                         .HasColumnType("nvarchar(max)");

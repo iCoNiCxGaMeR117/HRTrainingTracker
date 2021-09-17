@@ -11,6 +11,9 @@ namespace HRTrainingTracker.Entities.Models
     {
         public int TrainingTypesID { get; set; }
 
+        [Required]
+        public string TrainingTypeName { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public DateTime CreatedDate { get; set; }

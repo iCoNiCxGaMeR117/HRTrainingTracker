@@ -1,5 +1,112 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Employee Manager";
+}
+
+@model IList<HRTrainingTracker.Entities.Models.Training>
+
+<div class="row justify-content-center">
+    <div class="col-3 text-center my-auto">
+        <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="TrainingManagerAddNew">Add New</a>
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-4 text-center">
+        <hr />
+        <h2>Training Manager</h2>
+        <hr />
+        @if (!string.IsNullOrEmpty((string)TempData.Peek("Error")))
+        {
+            <p class="text-danger">@TempData["Error"].ToString()</p>
+        }
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-3">
+
+    </div>
+</div>
+<hr />
+@if (Model != null)
+{
+    @if (Model.Count == 0)
+    {
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <hr />
+                No Items Found!
+                <br />
+                To add items, click the "Add New" button above!
+                <hr />
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-12 text-center table-responsive">
+                <table class="table TrainingDataTable table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="my-auto text-center notexport"></th>
+                            <th class="my-auto text-center">ID</th>
+                            <th class="my-auto text-center">Training Name</th>
+                            <th class="my-auto text-center">Training Date</th>
+                            <th class="my-auto text-center">Training Expiration</th>
+                            <th class="my-auto text-center">Trainer</th>
+                            <th class="my-auto text-center">Training Type</th>
+                            <th class="my-auto text-center">Locality</th>
+                            <th class="my-auto text-center">Employees Count</th>
+                            <th class="my-auto text-center">Expired</th>
+                            <th class="my-auto text-center notexport"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td class="my-auto text-center">
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.ElementAt(i).TrainingID)">Edit</a>
+                                </td>
+                                <td class="my-auto text-center">
+                                    <b>@Html.DisplayFor(obj => obj.ElementAt(i).TrainingID)</b>
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingName)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingDate)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingExpiration)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainerName)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingType.TrainingTypeName)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).Locality)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.ElementAt(i).Employees.Count)
+                                </td>
+                                <td>
+                                    @if (Model.ElementAt(i).Expired)
+                                    {
+                                        <span class="badge badge-pill badge-danger">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-pill badge-success">No</span>
+                                    }
+                                </td>
+                                <td class="my-auto text-center">
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.ElementAt(i).TrainingID)">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }

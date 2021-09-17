@@ -13,24 +13,20 @@ namespace HRTrainingTracker.FrontEnd.Controllers
     public class TrainingInsightsController : Controller
     {
         private readonly ILogger<TrainingInsightsController> _logger;
-        private readonly HRTrainingContext _context;
+        private readonly EmployeeFunctions _empFunc;
 
         public TrainingInsightsController(ILogger<TrainingInsightsController> logger, HRTrainingContext context)
         {
             _logger = logger;
-            _context = context;
+            _empFunc = new EmployeeFunctions(context);
         }
 
+        #region Employee Endpoints
         public IActionResult EmployeeManagerAddNew()
         {
             try
             {
-                var newEmployee = new Employee
-                {
-                    ShiftList = _context.Shifts.OrderBy(obj => obj.Name).ShiftSelectList(),
-                    DeptList = _context.Departments.OrderBy(obj => obj.Name).DeptSelectList(),
-                    BuildingList = _context.Buildings.OrderBy(obj => obj.Name).BuildingSelectList()
-                };
+                var newEmployee = _empFunc.NewEmployeeBuilding();
 
                 return View(newEmployee);
             }
@@ -45,16 +41,10 @@ namespace HRTrainingTracker.FrontEnd.Controllers
         {
             try
             {
-                NewEmployee.Building = _context.Buildings.FirstOrDefault(obj => obj.BuildingID.Equals(NewEmployee.Building.BuildingID));
-                NewEmployee.Department = _context.Departments.FirstOrDefault(obj => obj.DepartmentID.Equals(NewEmployee.Department.DepartmentID));
-                NewEmployee.Shift = _context.Shifts.FirstOrDefault(obj => obj.ShiftID.Equals(NewEmployee.Shift.ShiftID));
+                var savedChanges = _empFunc.SaveEmployee(NewEmployee, User.Identity.Name.Split('\\')[1], true);
 
-                NewEmployee.CreatedByName = User.Identity.Name.Split('\\')[1];
-                NewEmployee.CreatedDate = DateTime.Now;
-
-                _context.Employees.Add(NewEmployee);
-
-                _context.SaveChanges();
+                if (!savedChanges)
+                    TempData["Error"] = "No records were updated! Make sure it doesn't already exist!";
 
                 return RedirectToAction("EmployeeManager", "Home");
             }
@@ -64,5 +54,56 @@ namespace HRTrainingTracker.FrontEnd.Controllers
                 return RedirectToAction("EmployeeManagerAddNew");
             }
         }
+
+        public IActionResult EditEmployee(int id)
+        {
+            try
+            {
+                var employee = _empFunc.GetEmployee(id);
+
+                return View(employee);
+            }
+            catch
+            {
+                TempData["Error"] = "An Issue Occured! Could Not Access Database!";
+                return RedirectToAction("EmployeeManager");
+            }
+        }
+
+        public IActionResult EmployeeSaver(Employee EditedEmployee)
+        {
+            try
+            {
+                var savedChanges = _empFunc.SaveEmployee(EditedEmployee, User.Identity.Name.Split('\\')[1], false);
+
+                if (!savedChanges)
+                    TempData["Error"] = "No records were updated! Make sure it doesn't already exist!";
+
+                return RedirectToAction("EmployeeManager", "Home");
+            }
+            catch
+            {
+                TempData["Error"] = "An Issue Occured! Could Not Access Database!";
+                return RedirectToAction("EmployeeManagerAddNew");
+            }
+        }
+
+        public IActionResult RetireEmployee(int id)
+        {
+            var savedChanges = _empFunc.RetireEmployee(id);
+
+            if (!savedChanges)
+                TempData["Error"] = "No records were updated! Make sure it doesn't already exist!";
+
+            return RedirectToAction("EmployeeManager", "Home");
+        }
+        #endregion
+
+        #region Training Endpoints
+        public IActionResult TrainingManagerAddNew()
+        {
+            return View();
+        }
+        #endregion
     }
 }

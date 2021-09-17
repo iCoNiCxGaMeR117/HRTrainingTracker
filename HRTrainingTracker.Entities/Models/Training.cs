@@ -35,6 +35,9 @@ namespace HRTrainingTracker.Entities.Models
         public Local Locality { get; set; }
 
         [Required]
+        public bool Expired { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public DateTime CreatedDate { get; set; }

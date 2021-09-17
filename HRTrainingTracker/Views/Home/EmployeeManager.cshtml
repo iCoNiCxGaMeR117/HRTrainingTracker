@@ -42,10 +42,10 @@
     {
         <div class="row justify-content-center">
             <div class="col-12 text-center table-responsive">
-                <table class="table CustomDataTable table-bordered table-striped">
+                <table class="table EmployeeDataTable table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th class="my-auto text-center"></th>
+                            <th class="my-auto text-center notexport"></th>
                             <th class="my-auto text-center">ID</th>
                             <th class="my-auto text-center">First Name</th>
                             <th class="my-auto text-center">Last Name</th>
@@ -56,6 +56,7 @@
                             <th class="my-auto text-center">Department</th>
                             <th class="my-auto text-center">Active</th>
                             <th class="my-auto text-center">Manager</th>
+                            <th class="my-auto text-center notexport"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +64,7 @@
                         {
                             <tr>
                                 <td class="my-auto text-center">
-                                    <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EmployeeManagerAddNew" asp-route-id="@(Model.ElementAt(i).EmployeeID)">Select</a>
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditEmployee" asp-route-id="@(Model.ElementAt(i).EmployeeID)">Edit</a>
                                 </td>
                                 <td class="my-auto text-center">
                                     <b>@Html.DisplayFor(obj => obj.ElementAt(i).EmployeeID)</b>
@@ -107,6 +108,16 @@
                                     else
                                     {
                                         <span class="badge badge-pill badge-danger">No</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.ElementAt(i).Active)
+                                    {
+                                        <a class="btn btn-outline-danger buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireEmployee" asp-route-id="@(Model.ElementAt(i).EmployeeID)">Retire</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-success buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireEmployee" asp-route-id="@(Model.ElementAt(i).EmployeeID)">Activate</a>
                                     }
                                 </td>
                             </tr>

@@ -1,4 +1,5 @@
-﻿using HRTrainingTracker.Entities;
+﻿using HRTrainingTracker.BusinessLayer;
+using HRTrainingTracker.Entities;
 using HRTrainingTracker.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace HRTrainingTracker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly HRTrainingContext _context;
+        private readonly EmployeeFunctions _emplFunc;
+        private readonly TrainingFunctions _tranFunc;
 
         public HomeController(ILogger<HomeController> logger, HRTrainingContext context)
         {
             _logger = logger;
-            _context = context;
+            _emplFunc = new EmployeeFunctions(context);
+            _tranFunc = new TrainingFunctions(context);
         }
 
         public IActionResult Index()
@@ -33,13 +36,7 @@ namespace HRTrainingTracker.Controllers
         {
             try
             {
-                var Employees = _context.Employees
-                    .Include(training => training.TrainingList)
-                    .Include(shift => shift.Shift)
-                    .Include(building => building.Building)
-                    .Include(dept => dept.Department)
-                    .OrderBy(item => item.LastName)
-                    .ToList();
+                var Employees = _emplFunc.BuildEmployeeListing();
 
                 return View(Employees);
             }
@@ -54,12 +51,7 @@ namespace HRTrainingTracker.Controllers
         {
             try
             {
-                var Trainings = _context.Trainings
-                    .Include(employee => employee.Employees)
-                    .Include(types => types.TrainingType)
-                    .Include(local => local.Locality)
-                    .OrderByDescending(item => item.TrainingID)
-                    .ToList();
+                var Trainings = _tranFunc.BuildTrainingListing();
 
                 return View(Trainings);
             }
