@@ -1,0 +1,31 @@
+<div class="col-4 text-center">
+                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal@(i.ToString())">
+                                    Remove Company
+                                </button>
+                                <div class="modal fade" id="deleteModal@(i.ToString())" tabindex="-1" role="dialog" aria-labelledby="Delete Company @(Model.ElementAt(i).CmpnyNm)" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <h5 class="modal-title">@(Model.ElementAt(i).CmpnyNm)</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Do you really want to delete this company?
+                                                <hr />
+                                                <b>!WARNING!</b>
+                                                <hr />
+                                                Removing this company will remove any attached items as well. This is not reversible!
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                @using (Html.BeginForm("RemoveCompany", "Company", FormMethod.Post))
+                                                {
+                                                    <button class="btn btn-outline-danger buttonload" name="id" value="@(Model.ElementAt(i).CmpnyId)">Confirm Removal</button>
+                                                }
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

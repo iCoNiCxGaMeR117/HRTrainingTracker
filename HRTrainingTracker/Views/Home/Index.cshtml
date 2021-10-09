@@ -1,3 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+<div class="row justify-content-center">
+    <div class="col-3">
+
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-4 text-center">
+        <hr />
+        <h2>Manager Home</h2>
+        <hr />
+        @if (!string.IsNullOrEmpty((string)TempData.Peek("Error")))
+        {
+            <p class="text-danger">@TempData["Error"].ToString()</p>
+        }
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-3">
+
+    </div>
+</div>
+<hr />
+<div class="row justify-content-center">
+    <div class="col-auto">
+
+    </div>
+</div>
+<br />
+<div class="row justify-content-center">
+    <div class="col-5 text-center my-auto">
+        <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="Home" asp-action="EmployeeManager">Employee Manager</a>
+    </div>
+    <div class="col-auto">
+    </div>
+    <div class="col-5 text-center my-auto">
+        <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="Home" asp-action="TrainingManager">Training Manager</a>
+    </div>
+</div>
+<hr />
+<div class="row justify-content-center">
+    <div class="col-3">
+
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-4 text-center">
+        <hr />
+        <h2>Expiring Trainings</h2>
+        <hr />
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-3">
+
+    </div>
+</div>
+<br />
+<div class="row justify-content-center">
+    <div class="col-12 text-center">
+        IN DEVELOPMENT
+    </div>
+</div>

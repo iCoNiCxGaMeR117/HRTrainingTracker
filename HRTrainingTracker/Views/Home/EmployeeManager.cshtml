@@ -1,0 +1,205 @@
+﻿@{
+    ViewData["Title"] = "Employee Manager";
+}
+
+@model EmployeesViewerModel
+
+<div class="row justify-content-center">
+    <div class="col-3 text-center my-auto">
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#NewEmployeeModal">
+            Add New Employee
+        </button>
+    </div>
+    @using (Html.BeginForm("NewEmployeeSaver", "TrainingInsights", FormMethod.Post))
+    {
+        <div class="modal fade" id="NewEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="Add New Employee" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">Add New Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>First Name</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewEmployee.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Last Name</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewEmployee.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Hire Date</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewEmployee.HireDate, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Transfer Date</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewEmployee.TransferDate, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Building</b>
+                                <br />
+                                @Html.DropDownListFor(obj => obj.NewEmployee.Building.BuildingID, Model.NewEmployee.BuildingList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Shift</b>
+                                <br />
+                                @Html.DropDownListFor(obj => obj.NewEmployee.Shift.ShiftID, Model.NewEmployee.ShiftList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Department</b>
+                                <br />
+                                @Html.DropDownListFor(obj => obj.NewEmployee.Department.DepartmentID, Model.NewEmployee.DeptList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-6 text-center my-auto">
+                                <b>Manager</b>
+                                <br />
+                                <br />
+                                @Html.CheckBoxFor(obj => obj.NewEmployee.Manager)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-outline-success buttonload">Create Employee!</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-auto"></div>
+    <div class="col-4 text-center">
+        <hr />
+        <h2>Employee Manager</h2>
+        <hr />
+        @if (!string.IsNullOrEmpty((string)TempData.Peek("Error")))
+        {
+            <p class="text-danger">@TempData["Error"].ToString()</p>
+        }
+    </div>
+    <div class="col-auto"></div>
+    <div class="col-3">
+
+    </div>
+</div>
+<hr />
+@if (Model.Employees != null)
+{
+    @if (Model.Employees.Count == 0)
+    {
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <hr />
+                No Items Found!
+                <br />
+                To add items, click the "Add New" button above!
+                <hr />
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-12 text-center table-responsive">
+                <table class="table EmployeeDataTable table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="my-auto text-center notexport"></th>
+                            <th class="my-auto text-center">ID</th>
+                            <th class="my-auto text-center">First Name</th>
+                            <th class="my-auto text-center">Last Name</th>
+                            <th class="my-auto text-center">Shift</th>
+                            <th class="my-auto text-center">Hire Date</th>
+                            <th class="my-auto text-center">Transfer Date</th>
+                            <th class="my-auto text-center">Building</th>
+                            <th class="my-auto text-center">Department</th>
+                            <th class="my-auto text-center">Active</th>
+                            <th class="my-auto text-center">Manager</th>
+                            <th class="my-auto text-center notexport"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Employees.Count; i++)
+                        {
+                            <tr>
+                                <td class="my-auto text-center">
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditEmployee" asp-route-id="@(Model.Employees.ElementAt(i).EmployeeID)">Edit</a>
+                                </td>
+                                <td class="my-auto text-center">
+                                    <b>@Html.DisplayFor(obj => obj.Employees.ElementAt(i).EmployeeID)</b>
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).FirstName)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).LastName)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).Shift.Name)
+                                </td>
+                                <td class="my-auto text-center" data-order="@(Model.Employees.ElementAt(i).HireDate.ToString("yyyy-MM-dd"))">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).HireDate)
+                                </td>
+                                <td class="my-auto text-center" data-order="@(Model.Employees.ElementAt(i).TransferDate != null ? ((DateTime)Model.Employees.ElementAt(i).TransferDate).ToString("yyyy-MM-dd") : "9999-99-" + i.ToString())">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).TransferDate)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).Building.Name)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @Html.DisplayFor(obj => obj.Employees.ElementAt(i).Department.Name)
+                                </td>
+                                <td class="my-auto text-center">
+                                    @if (Model.Employees.ElementAt(i).Active)
+                                    {
+                                        <span class="badge badge-pill badge-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-pill badge-danger">No</span>
+                                    }
+                                </td>
+                                <td class="my-auto text-center">
+                                    @if (Model.Employees.ElementAt(i).Manager)
+                                    {
+                                        <span class="badge badge-pill badge-success">Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-pill badge-danger">No</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Model.Employees.ElementAt(i).Active)
+                                    {
+                                        <a class="btn btn-outline-danger buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireEmployee" asp-route-id="@(Model.Employees.ElementAt(i).EmployeeID)">Retire</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-success buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireEmployee" asp-route-id="@(Model.Employees.ElementAt(i).EmployeeID)">Activate</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}
