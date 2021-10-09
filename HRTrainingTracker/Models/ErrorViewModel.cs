@@ -1,6 +1,6 @@
 using System;
 
-namespace HRTrainingTracker.Models
+namespace HRTrainingTracker.FrontEnd.Models
 {
     public class ErrorViewModel
     {

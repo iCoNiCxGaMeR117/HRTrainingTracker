@@ -1,15 +1,10 @@
 ﻿using HRTrainingTracker.BusinessLayer;
 using HRTrainingTracker.Entities;
-using HRTrainingTracker.Models;
+using HRTrainingTracker.FrontEnd.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HRTrainingTracker.Controllers
 {
@@ -36,9 +31,7 @@ namespace HRTrainingTracker.Controllers
         {
             try
             {
-                var Employees = _emplFunc.BuildEmployeeListing();
-
-                return View(Employees);
+                return View(_emplFunc.InitializeEmployeesViewer());
             }
             catch
             {
@@ -51,9 +44,7 @@ namespace HRTrainingTracker.Controllers
         {
             try
             {
-                var Trainings = _tranFunc.BuildTrainingListing();
-
-                return View(Trainings);
+                return View(_tranFunc.InitializeTrainingsViewer());
             }
             catch
             {

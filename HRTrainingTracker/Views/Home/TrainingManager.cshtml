@@ -2,12 +2,73 @@
     ViewData["Title"] = "Employee Manager";
 }
 
-@model IList<HRTrainingTracker.Entities.Models.Training>
+@model TrainingsViewerModel
 
 <div class="row justify-content-center">
     <div class="col-3 text-center my-auto">
-        <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="TrainingManagerAddNew">Add New</a>
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#NewTrainingModal">
+            Add New Training
+        </button>
     </div>
+    @using (Html.BeginForm("NewTrainingSaver", "TrainingInsights", FormMethod.Post))
+    {
+        <div class="modal fade" id="NewTrainingModal" tabindex="-1" role="dialog" aria-labelledby="Add New Training" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title">Add New Training</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Training Name</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewTraining.TrainingName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Educator Name</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewTraining.TrainerName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Training Date</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewTraining.TrainingDate, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Expiration Date</b>
+                                <br />
+                                @Html.EditorFor(obj => obj.NewTraining.TrainingExpiration, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-6 text-center">
+                                <b>Training Type</b>
+                                <br />
+                                @Html.DropDownListFor(obj => obj.NewTraining.TrainingType.TrainingTypesID, Model.NewTraining.TrainingTypesList, new { @class = "form-control" })
+                            </div>
+                            <div class="col-6 text-center">
+                                <b>Locality</b>
+                                <br />
+                                @Html.DropDownListFor(obj => obj.NewTraining.Locality.LocalID, Model.NewTraining.LocalitiesList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-outline-success buttonload">Create Training!</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="col-auto"></div>
     <div class="col-4 text-center">
         <hr />
@@ -24,9 +85,9 @@
     </div>
 </div>
 <hr />
-@if (Model != null)
+@if (Model.Trainings != null)
 {
-    @if (Model.Count == 0)
+    @if (Model.Trainings.Count == 0)
     {
         <div class="row justify-content-center">
             <div class="col-6 text-center">
@@ -59,38 +120,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (var i = 0; i < Model.Count; i++)
+                        @for (var i = 0; i < Model.Trainings.Count; i++)
                         {
                             <tr>
                                 <td class="my-auto text-center">
-                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.ElementAt(i).TrainingID)">Edit</a>
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.Trainings.ElementAt(i).TrainingID)">Edit</a>
                                 </td>
                                 <td class="my-auto text-center">
-                                    <b>@Html.DisplayFor(obj => obj.ElementAt(i).TrainingID)</b>
+                                    <b>@Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainingID)</b>
                                 </td>
                                 <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingName)
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainingName)
+                                </td>
+                                <td class="my-auto text-center" data-order="@(Model.Trainings.ElementAt(i).TrainingDate.ToString("yyyy-MM-dd"))">
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainingDate)
+                                </td>
+                                <td class="my-auto text-center" data-order="@(Model.Trainings.ElementAt(i).TrainingExpiration != null ? ((DateTime)Model.Trainings.ElementAt(i).TrainingExpiration).ToString("yyyy-MM-dd") : "9999-99-" + i.ToString())">
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainingExpiration)
                                 </td>
                                 <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingDate)
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainerName)
                                 </td>
                                 <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingExpiration)
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).TrainingType.TrainingTypeName)
                                 </td>
                                 <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainerName)
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).Locality.Name)
                                 </td>
                                 <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).TrainingType.TrainingTypeName)
-                                </td>
-                                <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).Locality)
-                                </td>
-                                <td class="my-auto text-center">
-                                    @Html.DisplayFor(obj => obj.ElementAt(i).Employees.Count)
+                                    @Html.DisplayFor(obj => obj.Trainings.ElementAt(i).Employees.Count)
                                 </td>
                                 <td>
-                                    @if (Model.ElementAt(i).Expired)
+                                    @if (Model.Trainings.ElementAt(i).Expired)
                                     {
                                         <span class="badge badge-pill badge-danger">Yes</span>
                                     }
@@ -100,7 +161,7 @@
                                     }
                                 </td>
                                 <td class="my-auto text-center">
-                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.ElementAt(i).TrainingID)">Edit</a>
+                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.Trainings.ElementAt(i).TrainingID)">Edit</a>
                                 </td>
                             </tr>
                         }

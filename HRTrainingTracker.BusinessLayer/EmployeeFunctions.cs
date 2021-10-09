@@ -1,5 +1,6 @@
 ﻿using HRTrainingTracker.Entities;
 using HRTrainingTracker.Entities.Models;
+using HRTrainingTracker.Entities.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,15 @@ namespace HRTrainingTracker.BusinessLayer
         public EmployeeFunctions(HRTrainingContext context)
         {
             _context = context;
+        }
+
+        public EmployeesViewerModel InitializeEmployeesViewer()
+        {
+            return new EmployeesViewerModel
+            {
+                Employees = BuildEmployeeListing(),
+                NewEmployee = NewEmployeeBuilding()
+            };
         }
 
         public IList<Employee> BuildEmployeeListing()
@@ -42,9 +52,9 @@ namespace HRTrainingTracker.BusinessLayer
             {
                 return new Employee
                 {
-                    ShiftList = _context.Shifts.OrderBy(obj => obj.Name).ShiftSelectList(),
-                    DeptList = _context.Departments.OrderBy(obj => obj.Name).DeptSelectList(),
-                    BuildingList = _context.Buildings.OrderBy(obj => obj.Name).BuildingSelectList()
+                    ShiftList = _context.Shifts.OrderBy(obj => obj.Name).BuildSelectList(),
+                    DeptList = _context.Departments.OrderBy(obj => obj.Name).BuildSelectList(),
+                    BuildingList = _context.Buildings.OrderBy(obj => obj.Name).BuildSelectList()
                 };
             }
             catch
@@ -95,9 +105,9 @@ namespace HRTrainingTracker.BusinessLayer
                     .Include(building => building.Building)
                     .First(emplId => emplId.EmployeeID.Equals(id));
 
-                selectedEmployee.ShiftList = _context.Shifts.OrderBy(obj => obj.Name).ShiftSelectList();
-                selectedEmployee.DeptList = _context.Departments.OrderBy(obj => obj.Name).DeptSelectList();
-                selectedEmployee.BuildingList = _context.Buildings.OrderBy(obj => obj.Name).BuildingSelectList();
+                selectedEmployee.ShiftList = _context.Shifts.OrderBy(obj => obj.Name).BuildSelectList();
+                selectedEmployee.DeptList = _context.Departments.OrderBy(obj => obj.Name).BuildSelectList();
+                selectedEmployee.BuildingList = _context.Buildings.OrderBy(obj => obj.Name).BuildSelectList();
 
                 return selectedEmployee;
             }

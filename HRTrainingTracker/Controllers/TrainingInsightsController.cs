@@ -14,29 +14,16 @@ namespace HRTrainingTracker.FrontEnd.Controllers
     {
         private readonly ILogger<TrainingInsightsController> _logger;
         private readonly EmployeeFunctions _empFunc;
+        private readonly TrainingFunctions _trnFunc;
 
         public TrainingInsightsController(ILogger<TrainingInsightsController> logger, HRTrainingContext context)
         {
             _logger = logger;
             _empFunc = new EmployeeFunctions(context);
+            _trnFunc = new TrainingFunctions(context);
         }
 
         #region Employee Endpoints
-        public IActionResult EmployeeManagerAddNew()
-        {
-            try
-            {
-                var newEmployee = _empFunc.NewEmployeeBuilding();
-
-                return View(newEmployee);
-            }
-            catch
-            {
-                TempData["Error"] = "An Issue Occured! Could Not Access Database!";
-                return RedirectToAction("EmployeeManager", "Home");
-            }
-        }
-
         public IActionResult NewEmployeeSaver(Employee NewEmployee)
         {
             try
@@ -103,6 +90,16 @@ namespace HRTrainingTracker.FrontEnd.Controllers
         public IActionResult TrainingManagerAddNew()
         {
             return View();
+        }
+
+        public IActionResult NewTrainingSaver(Training NewTraining)
+        {
+            var savedChanges = _trnFunc.SaveTraining(NewTraining, User.Identity.Name.Split('\\')[1], true);
+
+            if (!savedChanges)
+                TempData["Error"] = "No records were updated! Make sure it doesn't already exist!";
+
+            return RedirectToAction("TrainingManager", "Home");
         }
         #endregion
     }

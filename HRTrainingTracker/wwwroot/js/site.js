@@ -3,6 +3,25 @@
         $('#PageBody').hide();
         $('#Loading').show();
     });
+
+    $('.summernote').summernote({
+        height: 300,
+        minHeight: null,
+        maxHeight: null,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'hr']],
+            //['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ]
+    });
 });
 
 $(document).ready(function () {
