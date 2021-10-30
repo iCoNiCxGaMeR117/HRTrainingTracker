@@ -101,6 +101,36 @@ namespace HRTrainingTracker.FrontEnd.Controllers
 
             return RedirectToAction("TrainingManager", "Home");
         }
+
+        public IActionResult EditTraining(int id)
+        {
+            try
+            {
+                var training = _trnFunc.GetTrainingById(id);
+
+                return View(training);
+            }
+            catch
+            {
+                TempData["Error"] = "An Issue Occured! Could Not Access Database!";
+                return RedirectToAction("TrainingManager");
+            }
+        }
+
+        public IActionResult TrainingSaver(Training EditedTraining)
+        {
+            var savedChanges = _trnFunc.SaveTraining(EditedTraining, User.Identity.Name.Split('\\')[1], false);
+
+            if (!savedChanges)
+                TempData["Error"] = "No records were updated! Make sure it doesn't already exist!";
+
+            return RedirectToAction("TrainingManager", "Home");
+        }
+
+        public IActionResult AttachEmployeeToTraining(Training SelectedTraining, int emplId)
+        {
+            return View();
+        }
         #endregion
     }
 }

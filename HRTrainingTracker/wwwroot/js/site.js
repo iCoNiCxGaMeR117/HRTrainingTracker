@@ -3,30 +3,14 @@
         $('#PageBody').hide();
         $('#Loading').show();
     });
-
-    $('.summernote').summernote({
-        height: 300,
-        minHeight: null,
-        maxHeight: null,
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'hr']],
-            //['view', ['fullscreen', 'codeview']],
-            ['help', ['help']]
-        ]
-    });
 });
 
 $(document).ready(function () {
+    $('#Loading').hide();
+    $('#PageBody').show();
+
     $('.CustomDataTable').DataTable({
-        dom: 'QBfrtip',
+        dom: 'BQlfrtip',
         buttons: [
             'copy', 'excel', 'pdf'
         ],
@@ -40,7 +24,7 @@ $(document).ready(function () {
     });
 
     $('.TrainingDataTable').DataTable({
-        dom: 'QBfrtip',
+        dom: 'BQlfrtip',
         buttons: [
             'copy', 'excel', 'pdf'
         ],
@@ -95,7 +79,7 @@ $(document).ready(function () {
     });
 
     $('.EmployeeDataTable').DataTable({
-        dom: 'QBfrtip',
+        dom: 'BQlfrtip',
         buttons: [
             'copy', 'excel', 'pdf'
         ],
@@ -147,5 +131,15 @@ $(document).ready(function () {
                 ]
             }
         }
+    });
+
+    $('.AttachEmployeeDataTable').DataTable({
+        dom: 'lfrtip',
+        order: [[1, "asc"]],
+        'columnDefs': [
+            {
+                'targets': 0,
+                'orderable': false
+            }]
     });
 });

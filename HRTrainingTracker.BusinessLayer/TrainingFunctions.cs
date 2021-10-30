@@ -83,5 +83,30 @@ namespace HRTrainingTracker.BusinessLayer
                 throw;
             }
         }
+
+        public Training GetTrainingById(int trainingID)
+        {
+            var training = _context.Trainings
+                .Include(empl => empl.Employees)
+                .Include(type => type.TrainingType)
+                .Include(local => local.Locality)
+                .Single(id => id.TrainingID.Equals(trainingID));
+
+            training.TrainingTypesList = _context.TrainingTypes
+                .OrderBy(name => name.TrainingTypeName)
+                .BuildSelectList();
+
+            training.LocalitiesList = _context.Localities
+                .OrderBy(name => name.Name)
+                .BuildSelectList();
+
+            training.AttachEmployeeList = _context.Employees
+                .Include(dept => dept.Department)
+                .Where(empl => empl.Active && !training.Employees.Contains(empl))
+                .OrderBy(nm => nm.LastName)
+                .ToList();
+
+            return training;
+        }
     }
 }

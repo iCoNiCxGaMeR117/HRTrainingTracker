@@ -59,5 +59,8 @@ namespace HRTrainingTracker.Entities.Models
 
         [NotMapped]
         public IList<SelectListItem> LocalitiesList { get; set; }
+
+        [NotMapped]
+        public IList<Employee> AttachEmployeeList { get; set; }
     }
 }
