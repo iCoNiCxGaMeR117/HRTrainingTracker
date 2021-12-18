@@ -12,19 +12,21 @@ namespace HRTrainingTracker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly HomeFunctions _homeFunc;
         private readonly EmployeeFunctions _emplFunc;
         private readonly TrainingFunctions _tranFunc;
 
         public HomeController(ILogger<HomeController> logger, HRTrainingContext context)
         {
             _logger = logger;
+            _homeFunc = new HomeFunctions(context);
             _emplFunc = new EmployeeFunctions(context);
             _tranFunc = new TrainingFunctions(context);
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_homeFunc.GetExpiringTrainings());
         }
 
         public IActionResult EmployeeManager()

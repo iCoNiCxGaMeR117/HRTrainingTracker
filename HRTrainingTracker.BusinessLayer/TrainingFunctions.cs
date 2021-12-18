@@ -58,8 +58,8 @@ namespace HRTrainingTracker.BusinessLayer
         {
             try
             {
-                training.TrainingType = _context.TrainingTypes.FirstOrDefault(obj => obj.TrainingTypesID.Equals(training.TrainingType.TrainingTypesID));
-                training.Locality = _context.Localities.FirstOrDefault(obj => obj.LocalID.Equals(training.Locality.LocalID));
+                training.TrainingType = _context.TrainingTypes.Single(obj => obj.TrainingTypesID.Equals(training.TrainingType.TrainingTypesID));
+                training.Locality = _context.Localities.Single(obj => obj.LocalID.Equals(training.Locality.LocalID));
 
                 if (newTraining)
                 {
@@ -107,6 +107,22 @@ namespace HRTrainingTracker.BusinessLayer
                 .ToList();
 
             return training;
+        }
+
+        public bool RetireTraining(int id)
+        {
+            try
+            {
+                var training = _context.Trainings.Single(empl => empl.TrainingID.Equals(id));
+
+                training.Expired = !training.Expired;
+
+                return _context.SaveChanges() > 0;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

@@ -67,9 +67,9 @@ namespace HRTrainingTracker.BusinessLayer
         {
             try
             {
-                employee.Building = _context.Buildings.FirstOrDefault(obj => obj.BuildingID.Equals(employee.Building.BuildingID));
-                employee.Department = _context.Departments.FirstOrDefault(obj => obj.DepartmentID.Equals(employee.Department.DepartmentID));
-                employee.Shift = _context.Shifts.FirstOrDefault(obj => obj.ShiftID.Equals(employee.Shift.ShiftID));
+                employee.Building = _context.Buildings.Single(obj => obj.BuildingID.Equals(employee.Building.BuildingID));
+                employee.Department = _context.Departments.Single(obj => obj.DepartmentID.Equals(employee.Department.DepartmentID));
+                employee.Shift = _context.Shifts.Single(obj => obj.ShiftID.Equals(employee.Shift.ShiftID));
 
                 if (newEmpl)
                 {
@@ -103,7 +103,7 @@ namespace HRTrainingTracker.BusinessLayer
                     .Include(shift => shift.Shift)
                     .Include(dept => dept.Department)
                     .Include(building => building.Building)
-                    .First(emplId => emplId.EmployeeID.Equals(id));
+                    .Single(emplId => emplId.EmployeeID.Equals(id));
 
                 selectedEmployee.ShiftList = _context.Shifts.OrderBy(obj => obj.Name).BuildSelectList();
                 selectedEmployee.DeptList = _context.Departments.OrderBy(obj => obj.Name).BuildSelectList();
@@ -121,7 +121,7 @@ namespace HRTrainingTracker.BusinessLayer
         {
             try
             {
-                var employee = _context.Employees.First(empl => empl.EmployeeID.Equals(id));
+                var employee = _context.Employees.Single(empl => empl.EmployeeID.Equals(id));
 
                 employee.Active = !employee.Active;
 

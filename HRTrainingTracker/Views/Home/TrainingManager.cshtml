@@ -26,12 +26,12 @@
                             <div class="col-6 text-center">
                                 <b>Training Name</b>
                                 <br />
-                                @Html.EditorFor(obj => obj.NewTraining.TrainingName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(obj => obj.NewTraining.TrainingName, new { htmlAttributes = new { @class = "form-control", @placeholder="(REQUIRED)" } })
                             </div>
                             <div class="col-6 text-center">
                                 <b>Educator Name</b>
                                 <br />
-                                @Html.EditorFor(obj => obj.NewTraining.TrainerName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(obj => obj.NewTraining.TrainerName, new { htmlAttributes = new { @class = "form-control", @placeholder="(REQUIRED)" } })
                             </div>
                         </div>
                         <br />
@@ -60,6 +60,14 @@
                                 @Html.DropDownListFor(obj => obj.NewTraining.Locality.LocalID, Model.NewTraining.LocalitiesList, new { @class = "form-control" })
                             </div>
                         </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-11 text-center">
+                                <b>Description</b>
+                                <br />
+                                @Html.TextAreaFor(obj => obj.NewTraining.TrainingDescription, new { @rows = 10, @class = "form-control" })
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer text-center">
                         <button class="btn btn-outline-success buttonload">Create Training!</button>
@@ -81,7 +89,6 @@
     </div>
     <div class="col-auto"></div>
     <div class="col-3">
-
     </div>
 </div>
 <hr />
@@ -160,8 +167,15 @@
                                         <span class="badge badge-pill badge-success">No</span>
                                     }
                                 </td>
-                                <td class="my-auto text-center">
-                                    <a class="btn btn-outline-info buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="EditTraining" asp-route-id="@(Model.Trainings.ElementAt(i).TrainingID)">Edit</a>
+                                <td>
+                                    @if (!Model.Trainings.ElementAt(i).Expired)
+                                    {
+                                        <a class="btn btn-outline-danger buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireTraining" asp-route-id="@(Model.Trainings.ElementAt(i).TrainingID)">Expire</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-outline-success buttonload" asp-area="" asp-controller="TrainingInsights" asp-action="RetireTraining" asp-route-id="@(Model.Trainings.ElementAt(i).TrainingID)">Activate</a>
+                                    }
                                 </td>
                             </tr>
                         }

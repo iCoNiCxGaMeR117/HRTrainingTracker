@@ -127,6 +127,13 @@ namespace HRTrainingTracker.FrontEnd.Controllers
             return RedirectToAction("TrainingManager", "Home");
         }
 
+        public IActionResult RetireTraining(int id)
+        {
+            _trnFunc.RetireTraining(id);
+
+            return RedirectToAction("TrainingManager", "Home");
+        }
+
         public IActionResult AttachEmployeeToTraining(Training SelectedTraining, int emplId)
         {
             return View();

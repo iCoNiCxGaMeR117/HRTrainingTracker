@@ -2,9 +2,10 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model HomeViewerModel
+
 <div class="row justify-content-center">
     <div class="col-3">
-
     </div>
     <div class="col-auto"></div>
     <div class="col-4 text-center">
@@ -18,16 +19,13 @@
     </div>
     <div class="col-auto"></div>
     <div class="col-3">
-
     </div>
 </div>
 <hr />
 <div class="row justify-content-center">
     <div class="col-auto">
-
     </div>
 </div>
-<br />
 <div class="row justify-content-center">
     <div class="col-5 text-center my-auto">
         <a class="btn btn-outline-primary buttonload" asp-area="" asp-controller="Home" asp-action="EmployeeManager">Employee Manager</a>
@@ -41,7 +39,6 @@
 <hr />
 <div class="row justify-content-center">
     <div class="col-3">
-
     </div>
     <div class="col-auto"></div>
     <div class="col-4 text-center">
@@ -51,12 +48,155 @@
     </div>
     <div class="col-auto"></div>
     <div class="col-3">
-
     </div>
 </div>
 <br />
-<div class="row justify-content-center">
-    <div class="col-12 text-center">
-        IN DEVELOPMENT
+@foreach (var training in Model.ExpiredTrainings)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center rounded border py-3">
+            <div class="row justify-content-center">
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Name</b>
+                    <hr />
+                    @Html.DisplayFor(nm => training.TrainingName)
+                </div>
+                <div class="col-auto"></div>
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Exp Date</b>
+                    <hr />
+                    <span class="badge badge-pill badge-danger">EXPIRED</span>
+                    <br />
+                    <span class="badge badge-pill badge-danger">@Html.DisplayFor(expDate => training.TrainingExpiration)</span>
+                </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-11 rounded border py-3">
+                    <b>Description</b>
+                    <hr />
+                    @if (string.IsNullOrEmpty(training.TrainingDescription))
+                    {
+                        <p>N/A</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(desc => training.TrainingDescription)
+                    }
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <br />
+}
+
+@foreach (var training in Model.RedTraining)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center rounded border py-3">
+            <div class="row justify-content-center">
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Name</b>
+                    <hr />
+                    @Html.DisplayFor(nm => training.TrainingName)
+                </div>
+                <div class="col-auto"></div>
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Exp Date</b>
+                    <hr />
+                    <span class="badge badge-pill badge-danger">@Html.DisplayFor(expDate => training.TrainingExpiration)</span>
+                </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-11 rounded border py-3">
+                    <b>Description</b>
+                    <hr />
+                    @if (string.IsNullOrEmpty(training.TrainingDescription))
+                    {
+                        <p>N/A</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(desc => training.TrainingDescription)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
+
+@foreach (var training in Model.YellowTraining)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center rounded border py-3">
+            <div class="row justify-content-center">
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Name</b>
+                    <hr />
+                    @Html.DisplayFor(nm => training.TrainingName)
+                </div>
+                <div class="col-auto"></div>
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Exp Date</b>
+                    <hr />
+                    <span class="badge badge-pill badge-warning">@Html.DisplayFor(expDate => training.TrainingExpiration)</span>
+                </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-11 rounded border py-3">
+                    <b>Description</b>
+                    <hr />
+                    @if (string.IsNullOrEmpty(training.TrainingDescription))
+                    {
+                        <p>N/A</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(desc => training.TrainingDescription)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
+
+@foreach (var training in Model.GreenTraining)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center rounded border py-3">
+            <div class="row justify-content-center">
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Name</b>
+                    <hr />
+                    @Html.DisplayFor(nm => training.TrainingName)
+                </div>
+                <div class="col-auto"></div>
+                <div class="col-4 text-center rounded border py-3">
+                    <b>Training Exp Date</b>
+                    <hr />
+                    <span class="badge badge-pill badge-success">@Html.DisplayFor(expDate => training.TrainingExpiration)</span>
+                </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-11 rounded border py-3">
+                    <b>Description</b>
+                    <hr />
+                    @if (string.IsNullOrEmpty(training.TrainingDescription))
+                    {
+                        <p>N/A</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(desc => training.TrainingDescription)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
